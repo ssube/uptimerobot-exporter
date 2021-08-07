@@ -8,7 +8,7 @@ const MILLIS_TO_SECONDS = 1000;
 const config = {
   endpoint: process.env['UPTIME_ENDPOINT'] || 'api.uptimerobot.com',
   key: process.env['UPTIME_KEY'] || 'app key required',
-  interval: parseInt(process.env['UPTIME_INTERVAL'] || '60000', 10),
+  interval: parseInt(process.env['UPTIME_INTERVAL'] || '600000', 10),
   port: parseInt(process.env['UPTIME_PORT'] || '3000', 10),
 };
 
