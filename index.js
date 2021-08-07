@@ -8,9 +8,9 @@ const MILLIS_TO_SECONDS = 1000;
 const config = {
   endpoint: process.env['UPTIME_ENDPOINT'] || 'api.uptimerobot.com',
   key: process.env['UPTIME_KEY'] || 'app key required',
-  interval: Number(process.env['UPTIME_INTERVAL'] || '60000'),
-  port: Number(process.env['UPTIME_PORT'] || '3000'),
-}
+  interval: parseInt(process.env['UPTIME_INTERVAL'] || '60000', 10),
+  port: parseInt(process.env['UPTIME_PORT'] || '3000', 10),
+};
 
 function apiRequest(method, path, params = {}) {
   return new Promise((res, rej) => {
@@ -88,13 +88,13 @@ function collectMonitors() {
         name: monitor.friendly_name,
       };
 
-      const avgMillis = Number(monitor.average_response_time, 10)
+      const avgMillis = parseFloat(monitor.average_response_time, 10)
       metrics.responseAvg.set(labels, avgMillis / MILLIS_TO_SECONDS);
       metrics.status.set(labels, monitor.status);
 
       if (monitor.response_times.length > 0) {
         const last = monitor.response_times[monitor.response_times.length - 1];
-        const lastMillis = Number(last.value, 10);
+        const lastMillis = parseFloat(last.value, 10);
         metrics.responseLast.set(labels, lastMillis / MILLIS_TO_SECONDS);
       }
     }
